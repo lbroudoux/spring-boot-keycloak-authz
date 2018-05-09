@@ -15,7 +15,7 @@
       "requiredActions": [
         "UPDATE_PASSWORD"
       ],
-      "realmRoles": [ "admin" ],
+      "realmRoles": [ "admin", "uma_authorization" ],
       "applicationRoles": {
         "realm-management": [ "realm-admin" ],
         "account": [ "manage-account" ]
@@ -30,7 +30,20 @@
         { "type" : "password",
           "value" : "jdoe" }
       ],
-      "realmRoles": [ "user" ],
+      "realmRoles": [ "user", "uma_authorization" ],
+      "applicationRoles": {
+      }
+    },
+    {
+      "username" : "alice",
+      "enabled": true,
+      "firstName": "Alice",
+      "lastName": "Wonderland",
+      "credentials" : [
+        { "type" : "password",
+          "value" : "alice" }
+      ],
+      "realmRoles": [ "user", "manager", "uma_authorization" ],
       "applicationRoles": {
       }
     },
