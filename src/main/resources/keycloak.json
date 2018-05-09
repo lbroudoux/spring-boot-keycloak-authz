@@ -1,0 +1,17 @@
+{
+  "realm": "sbauthz",
+  "auth-server-url" : "http://localhost:8180/auth",
+  "resource" : "sbauthz-app",
+  "credentials": {
+    "secret": "secret"
+  },
+  "policy-enforcer": {
+    "user-managed-access" : {},
+    "paths": [
+      {
+        "name": "CheckIdentity from keycloak.json",
+        "path": "/api/authz/checkIdentity"
+      }
+    ]
+  }
+}

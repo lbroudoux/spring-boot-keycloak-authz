@@ -1,0 +1,35 @@
+<h2>Authorization Management</h2>
+
+<a class="btn btn-info" ng-click="getUsers()"><i class="glyphicon glyphicon-fire"></i> Get Users</a>
+
+<a class="btn btn-primary" ng-click="createResource()"><i class="glyphicon glyphicon-fire"></i> Create Resource</a>
+
+<a class="btn btn-warning" ng-click="cleanResource()"><i class="glyphicon glyphicon-fire"></i> Clean Resource</a>
+
+<a class="btn btn-default" ng-click="checkIdentity()"><i class="glyphicon glyphicon-fire"></i> Check Identity</a>
+
+<br/>
+<table class="table table-hover" id="services">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Username</th>
+    <th>Email</th>
+    <th>Roles</th>
+    <th>&#160;</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="user in users">
+    <td>{{ user.id }}</td>
+    <td>{{ user.username }}</td>
+    <td>{{ user.email }}</td>
+    <td>{{ JSON.stringify(user.realmRoles) }}</td>
+    <td>
+      <a ng-click="getUserRoles(user.id)">Get Roles</a><br/>
+      <a ng-click="attachResource(user.id)">Attach Resource</a><br/>
+      <a ng-click="getOwnedResources(user.id)">Get Owned Resources</a>
+    </td>
+  </tr>
+  </tbody>
+</table>

@@ -1,0 +1,124 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <title>Microcks : Mocks for your Micro-services</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <!-- build:css({.,/..}) styles/vendor.css -->
+  <!-- bower:css -->
+  <!-- endbower -->
+  <!-- endbuild -->
+  <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" />
+  <!-- build:css(.tmp) styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild -->
+</head>
+<body ng-controller="RootController">
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<!-- Add your site or application content here -->
+<nav class="navbar navbar-default navbar-fixed-top ng-cloak">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-menu">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#/">
+        <h1 class="logo">
+          <img alt="SB Authz" src="images/keycloak.png"/>
+        </h1>
+      </a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="navbar-menu">
+      <ul class="nav navbar-nav">
+        <li class="active"><a ng-href="#/">Home</a></li>
+        <li><a ng-href="#/services">Services</a></li>
+        <li ng-show="hasRole('admin')"><a ng-href="#/authz">User Mgt</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            Administration <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="#/admin/export">All users <i class="glyphicon glyphicon-share"></i></a></li>
+            <li ng-show="hasRole('admin')"><a href="#/admin/import">Admin only <i class="glyphicon glyphicon-edit"></i></a></li>
+          </ul>
+        </li>
+        <li>
+          <form ng-submit="searchServices()" class="navbar-form" role="search">
+            <input type="text" class="form-control" ng-model="searchTerm" placeholder="Search"/>
+          </form>
+        </li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            <span class="glyphicon glyphicon-user"></span> &nbsp;
+            {{ username }} <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href ng-click="goToAccountManagement()">Account management <i class="glyphicon glyphicon-edit"></i></a></li>
+            <li class="divider"></li>
+            <li><a href ng-click="logout()">Logout <i class="glyphicon glyphicon-log-out"></i></a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div ng-view=""></div>
+</div>
+
+<footer>
+  <div class="container-fluid">
+    <p><span class="glyphicon glyphicon-heart"></span> from the <a href="http://microcks.github.io">Microcks</a> team</p>
+  </div>
+</footer>
+
+<!-- build:js(.) scripts/oldieshim.js -->
+<!--[if lt IE 9]>
+<script src="bower_components/es5-shim/es5-shim.js"></script>
+<script src="bower_components/json3/lib/json3.min.js"></script>
+<![endif]-->
+<!-- endbuild -->
+
+<!-- build:js({.,/..}) scripts/vendor.js -->
+<!-- bower:js -->
+<script src="../../bower_components/jquery/dist/jquery.js"></script>
+<script src="../../bower_components/es5-shim/es5-shim.js"></script>
+<script src="../../bower_components/angular/angular.js"></script>
+<script src="../../bower_components/json3/lib/json3.js"></script>
+<script src="../../bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="../../bower_components/angular-animate/angular-animate.js"></script>
+<script src="../../bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="../../bower_components/angular-resource/angular-resource.js"></script>
+<script src="../../bower_components/angular-route/angular-route.js"></script>
+<script src="../../bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script src="../../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="../../bower_components/keycloak/dist/keycloak.js"></script>
+<script src="../../bower_components/keycloak/dist/keycloak-authz.js"></script>
+<!-- endbower -->
+<!-- endbuild -->
+
+<!-- build:js(src/main/webapp) scripts/scripts.js -->
+<script src="scripts/app.js"></script>
+<script src="scripts/controllers/main.js"></script>
+<script src="scripts/controllers/root-controller.js"></script>
+<script src="scripts/services/sbauthz-services.js"></script>
+<script src="scripts/controllers/authz-controller.js"></script>
+<!-- endbuild -->
+
+<!-- build:js(src/main/webapp) scripts/keycloak-init.js -->
+<script src="scripts/keycloak-init.js"></script>
+<!-- endbuild -->
+</body>
+</html>
