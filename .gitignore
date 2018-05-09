@@ -1,3 +1,11 @@
+# Development files
+node
+node_modules
+dist
+.idea
+bower_components
+target
+
 # Compiled class file
 *.class
 
