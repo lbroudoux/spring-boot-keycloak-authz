@@ -60,12 +60,6 @@ It is located at `http://localhost:8180/auth`. Connect using the Keycloak defaul
 Create a new Keycloak realm by importing the `/src/main/resources/sbauthz-realm-config.json` file.
 This should a realm called simply `sbauthz`.
 
-Within this realm configuration, go to **Clients** > **sbauthz-app**. Pick the **Authorization** thumbnail
-and within the **Settings**, import the `/src/main/resources/sbauthz-authorization-config.json` file.
-  
-All your default resources, policies and permissions should have been set now!
-
-
 ### Spring Boot application
 
 Before lauching everything, you need to retrieve some frontend compoents. For that, we'll use `bower`.

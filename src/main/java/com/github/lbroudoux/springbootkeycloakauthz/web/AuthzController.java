@@ -1,13 +1,19 @@
 package com.github.lbroudoux.springbootkeycloakauthz.web;
 
+import java.security.Principal;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.keycloak.KeycloakSecurityContext;
 import org.keycloak.authorization.client.AuthzClient;
 import org.keycloak.authorization.client.ClientAuthorizationContext;
-import org.keycloak.authorization.client.representation.ResourceRepresentation;
-import org.keycloak.authorization.client.representation.ScopeRepresentation;
 import org.keycloak.authorization.client.resource.ProtectedResource;
 import org.keycloak.authorization.client.resource.ProtectionResource;
-
+import org.keycloak.representations.idm.authorization.ResourceRepresentation;
+import org.keycloak.representations.idm.authorization.ScopeRepresentation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -15,11 +21,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import javax.servlet.http.HttpServletRequest;
-import java.security.Principal;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * @author laurent
@@ -69,23 +70,23 @@ public class AuthzController {
          AuthzClient authzClient = AuthzClient.create();
          ProtectedResource pResource = authzClient.protection().resource();
 
-         Set<String> resources = pResource.findByFilter("name=service-5a62055df9935e351cd655c6");
-         if (resources.isEmpty()) {
+         ResourceRepresentation resource = pResource.findByName("service-5a62055df9935e351cd655c6");
+         if (resource == null) {
             throw new RuntimeException("Could not find protected resource with name [service-5a62055df9935e351cd655c6]");
          }
 
          // First remove resource because owner cannot be changed...
-         authzClient.protection().resource().delete(resources.iterator().next());
+         authzClient.protection().resource().delete(resource.getId());
 
          // Recreate resource with owner this time.
          HashSet<ScopeRepresentation> scopes = new HashSet<>();
          scopes.add(new ScopeRepresentation("myscope"));
 
-         ResourceRepresentation resource = new ResourceRepresentation("service-5a62055df9935e351cd655c6", scopes, "/api/services/5a62055df9935e351cd655c6",
+         ResourceRepresentation newResource = new ResourceRepresentation("service-5a62055df9935e351cd655c6", scopes, "/api/services/5a62055df9935e351cd655c6",
                "urn:sbauthz-app:resources:service");
-         resource.setOwner(ownerId);
+         newResource.setOwner(ownerId);
 
-         authzClient.protection().resource().create(resource);
+         authzClient.protection().resource().create(newResource);
       } catch (Throwable t) {
          log.error("Caught Throwable when attaching resource", t);
          t.printStackTrace();
@@ -101,12 +102,12 @@ public class AuthzController {
          AuthzClient authzClient = AuthzClient.create();
          ProtectedResource pResource = authzClient.protection().resource();
 
-         Set<String> resources = pResource.findByFilter("name=service-5a62055df9935e351cd655c6");
-         if (resources.isEmpty()) {
+         ResourceRepresentation resource = pResource.findByName("service-5a62055df9935e351cd655c6");
+         if (resource == null) {
             throw new RuntimeException("Could not find protected resource with name [service-5a62055df9935e351cd655c6]");
          }
 
-         authzClient.protection().resource().delete(resources.iterator().next());
+         authzClient.protection().resource().delete(resource.getId());
       } catch (Throwable t) {
          log.error("Caught Throwable when creating resource", t);
          t.printStackTrace();
@@ -153,12 +154,12 @@ public class AuthzController {
          AuthzClient authzClient = AuthzClient.create();
          ProtectedResource pResource = authzClient.protection().resource();
 
-         Set<String> resources = pResource.findByFilter("owner=" + ownerId);
-         if (resources.isEmpty()) {
+         String[] resources = pResource.find(null, null, null, ownerId, null, null, false, null, null);
+         if (resources.length == 0) {
             throw new RuntimeException("Could not find protected resource with owner [" + ownerId + "]");
          }
 
-         return new ResponseEntity<>(resources, HttpStatus.OK);
+         return new ResponseEntity<>(Arrays.asList(resources).stream().map(pResource::findById).collect(Collectors.toList()), HttpStatus.OK);
       } catch (Throwable t) {
          log.error("Caught Throwable when creating resource", t);
          t.printStackTrace();

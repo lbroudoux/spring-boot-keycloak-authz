@@ -53,7 +53,7 @@
       "email": "service-account-sbauthz-app@placeholder.org",
       "serviceAccountClientId": "sbauthz-app",
       "clientRoles": {
-        "photoz-restful-api" : ["uma_protection"]
+        "sbauthz-app" : ["uma_protection"]
       }
     }
   ],
@@ -99,7 +99,119 @@
       "webOrigins": [],
       "redirectUris": [
         "http://localhost:8080/*"
-      ]
+      ],
+      "authorizationSettings": {
+        "allowRemoteResourceManagement": true,
+        "policyEnforcementMode": "ENFORCING",
+        "resources": [
+          {
+            "name": "Clean Resource",
+            "uri": "/api/authz/cleanResource",
+            "ownerManagedAccess": false,
+            "attributes": {}
+          },
+          {
+            "name": "Create Resource",
+            "uri": "/api/authz/createResource",
+            "ownerManagedAccess": false,
+            "attributes": {}
+          },
+          {
+            "name": "Identity Resource",
+            "uri": "/api/authz/checkIdentity",
+            "type": "urn:sbauthz-app:resources:identity",
+            "ownerManagedAccess": false,
+            "attributes": {}
+          }
+        ],
+        "policies": [
+          {
+            "name": "Only Owner Policy",
+            "description": "Defines that only the resource owner is allowed to do something",
+            "type": "js",
+            "logic": "POSITIVE",
+            "decisionStrategy": "UNANIMOUS",
+            "config": {
+              "code": "$evaluation.grant();"
+            }
+          },
+          {
+            "name": "Any Admin Policy",
+            "description": "Defines that administrators can do something",
+            "type": "role",
+            "logic": "POSITIVE",
+            "decisionStrategy": "UNANIMOUS",
+            "config": {
+              "roles": "[{\"id\":\"admin\",\"required\":true}]"
+            }
+          },
+          {
+            "name": "Only Owner and Manager Policy",
+            "description": "Defines that only the resource owner and manager can do something",
+            "type": "aggregate",
+            "logic": "POSITIVE",
+            "decisionStrategy": "AFFIRMATIVE",
+            "config": {
+              "applyPolicies": "[\"Any Manager Policy\",\"Only Owner Policy\"]"
+            }
+          },
+          {
+            "name": "Any Manager Policy",
+            "description": "Defines that resource managers can do something",
+            "type": "role",
+            "logic": "POSITIVE",
+            "decisionStrategy": "UNANIMOUS",
+            "config": {
+              "roles": "[{\"id\":\"manager\",\"required\":true}]"
+            }
+          },
+          {
+            "name": "Any User Policy",
+            "description": "Defines that only users from well known clients are allowed to access",
+            "type": "role",
+            "logic": "POSITIVE",
+            "decisionStrategy": "UNANIMOUS",
+            "config": {
+              "roles": "[{\"id\":\"user\",\"required\":true}]"
+            }
+          },
+          {
+            "name": "Identity Rresource Permission",
+            "type": "resource",
+            "logic": "POSITIVE",
+            "decisionStrategy": "UNANIMOUS",
+            "config": {
+              "resources": "[\"Identity Resource\"]",
+              "applyPolicies": "[\"Any User Policy\"]"
+            }
+          },
+          {
+            "name": "Create Resource Permission",
+            "type": "resource",
+            "logic": "POSITIVE",
+            "decisionStrategy": "UNANIMOUS",
+            "config": {
+              "resources": "[\"Create Resource\"]",
+              "applyPolicies": "[\"Any User Policy\"]"
+            }
+          },
+          {
+            "name": "Clea Resource Permission",
+            "type": "resource",
+            "logic": "POSITIVE",
+            "decisionStrategy": "UNANIMOUS",
+            "config": {
+              "resources": "[\"Clean Resource\"]",
+              "applyPolicies": "[\"Any User Policy\"]"
+            }
+          }
+        ],
+        "scopes": [
+          {
+            "name": "myscope"
+          }
+        ]
+      }
     },
     {
       "name": "sbauthz-app-js",
@@ -113,6 +225,10 @@
         "http://localhost:8080/*"
       ]
     }
-  ],
-  "keycloakVersion": "3.4.0.Final"
+  ]
+
+
+
+
+
 }
