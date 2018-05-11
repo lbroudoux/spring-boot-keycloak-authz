@@ -1,30 +1,59 @@
-# Development files
-node
-node_modules
-dist
+# Intellij
+###################
 .idea
-bower_components
-target
+*.iml
 
-# Compiled class file
+# Eclipse #
+###########
+.project
+.settings
+.classpath
+
+# NetBeans #
+############
+nbactions.xml
+nb-configuration.xml
+catalog.xml
+nbproject
+
+# Compiled source #
+###################
+*.com
 *.class
+*.dll
+*.exe
+*.o
+*.so
 
-# Log file
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Logs and databases #
+######################
 *.log
 
-# BlueJ files
-*.ctxt
+# Maven #
+#########
+target
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+# Maven shade
+#############
+*dependency-reduced-pom.xml
 
-# Package Files #
-*.jar
-*.war
-*.ear
-*.zip
-*.tar.gz
-*.rar
+# nodejs #
+##########
+# KEYCLOAK-5391: We will re-exclude node_modules when node_modules handling is worked out.
+# For now, we keep our js libraries checked into GitHub, so we don't ignore.
+#node_modules
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+bower_components
