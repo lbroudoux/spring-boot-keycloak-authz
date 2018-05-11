@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
@@ -11,15 +11,16 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: org.keycloak:keycloak-spring-boot-starter:3.4.0.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.keycloak:keycloak-spring-boot-adapter:3.4.0.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.keycloak:keycloak-core:3.4.0.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.keycloak:keycloak-common:3.4.0.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.keycloak:keycloak-authz-client:3.4.0.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.keycloak:spring-boot-container-bundle:3.4.0.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.keycloak:keycloak-spring-security-adapter:3.4.0.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.keycloak:keycloak-adapter-spi:3.4.0.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.keycloak:keycloak-adapter-core:3.4.0.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.keycloak:keycloak-spring-boot-starter:4.0.0.Beta2" level="project" />
+    <orderEntry type="library" name="Maven: org.keycloak:keycloak-spring-boot-adapter:4.0.0.Beta2" level="project" />
+    <orderEntry type="library" name="Maven: org.keycloak:keycloak-spring-boot-adapter-core:4.0.0.Beta2" level="project" />
+    <orderEntry type="library" name="Maven: org.keycloak:keycloak-core:4.0.0.Beta2" level="project" />
+    <orderEntry type="library" name="Maven: org.keycloak:keycloak-common:4.0.0.Beta2" level="project" />
+    <orderEntry type="library" name="Maven: org.keycloak:keycloak-authz-client:4.0.0.Beta2" level="project" />
+    <orderEntry type="library" name="Maven: org.keycloak:spring-boot-container-bundle:4.0.0.Beta2" level="project" />
+    <orderEntry type="library" name="Maven: org.keycloak:keycloak-spring-security-adapter:4.0.0.Beta2" level="project" />
+    <orderEntry type="library" name="Maven: org.keycloak:keycloak-adapter-spi:4.0.0.Beta2" level="project" />
+    <orderEntry type="library" name="Maven: org.keycloak:keycloak-adapter-core:4.0.0.Beta2" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-web:1.5.10.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter:1.5.10.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot:1.5.10.RELEASE" level="project" />
