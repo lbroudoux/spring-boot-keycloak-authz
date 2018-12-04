@@ -15,7 +15,7 @@
       "requiredActions": [
         "UPDATE_PASSWORD"
       ],
-      "realmRoles": [ "admin", "uma_authorization" ],
+      "realmRoles": [ "user", "admin", "uma_authorization" ],
       "applicationRoles": {
         "realm-management": [ "realm-admin" ],
         "account": [ "manage-account" ]
@@ -93,10 +93,12 @@
       "enabled": true,
       "secret": "secret",
       "authorizationServicesEnabled" : true,
+      "bearerOnly": false,
       "publicClient": false,
-      "bearerOnly": true,
-      "baseUrl": "",
-      "webOrigins": [],
+      "standardFlowEnabled": false,
+      "webOrigins": [
+        "+"
+      ],
       "redirectUris": [
         "http://localhost:8080/*"
       ],
@@ -113,6 +115,18 @@
           {
             "name": "Create Resource",
             "uri": "/api/authz/createResource",
+            "ownerManagedAccess": false,
+            "attributes": {}
+          },
+          {
+            "name": "Attach Resource",
+            "uri": "/api/authz/attachResource/*",
+            "ownerManagedAccess": false,
+            "attributes": {}
+          },
+          {
+            "name": "Get Owned Resources",
+            "uri": "/api/authz/ownedResources/*",
             "ownerManagedAccess": false,
             "attributes": {}
           },
@@ -176,7 +190,7 @@
             }
           },
           {
-            "name": "Identity Rresource Permission",
+            "name": "Identity Resource Permission",
             "type": "resource",
             "logic": "POSITIVE",
             "decisionStrategy": "UNANIMOUS",
@@ -196,13 +210,34 @@
             }
           },
           {
-            "name": "Clea Resource Permission",
+            "name": "Clean Resource Permission",
             "type": "resource",
             "logic": "POSITIVE",
             "decisionStrategy": "UNANIMOUS",
             "config": {
               "resources": "[\"Clean Resource\"]",
               "applyPolicies": "[\"Any User Policy\"]"
+            }
+          },
+          {
+            "name": "Attach Resource Permission",
+            "type": "resource",
+            "logic": "POSITIVE",
+            "decisionStrategy": "UNANIMOUS",
+            "config": {
+              "resources": "[\"Attach Resource\"]",
+              "applyPolicies": "[\"Any Admin Policy\"]"
+            }
+          }
+        ,
+          {
+            "name": "Get Owned Resources Permission",
+            "type": "resource",
+            "logic": "POSITIVE",
+            "decisionStrategy": "UNANIMOUS",
+            "config": {
+              "resources": "[\"Get Owned Resources\"]",
+              "applyPolicies": "[\"Any Admin Policy\"]"
             }
           }
         ],

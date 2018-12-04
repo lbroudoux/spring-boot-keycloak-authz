@@ -102,12 +102,14 @@ public class AuthzController {
          AuthzClient authzClient = AuthzClient.create();
          ProtectedResource pResource = authzClient.protection().resource();
 
-         ResourceRepresentation resource = pResource.findByName("service-5a62055df9935e351cd655c6");
-         if (resource == null) {
+         // pResource.findByName() does not seem to work in Keycloak 4.0.0.Final
+         // when resource is attached to an owner that is not the realm client identifier.
+         String[] resources = pResource.find(null, "service-5a62055df9935e351cd655c6", null, null, null, null, false, null, null);
+         if (resources == null || resources.length != 1) {
             throw new RuntimeException("Could not find protected resource with name [service-5a62055df9935e351cd655c6]");
          }
 
-         authzClient.protection().resource().delete(resource.getId());
+         authzClient.protection().resource().delete(resources[0]);
       } catch (Throwable t) {
          log.error("Caught Throwable when creating resource", t);
          t.printStackTrace();

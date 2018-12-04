@@ -75,6 +75,7 @@
                 // here is the authorization logic, which tries to obtain an authorization token from the server in case the resource server
                 // returns a 403 or 401.
                 var wwwAuthenticateHeader = rejection.headers('WWW-Authenticate');
+                console.log('wwwAuthenticateHeader: ' + JSON.stringify(wwwAuthenticateHeader));
 
                 // when using UMA, a WWW-Authenticate header should be returned by the resource server
                 if (!wwwAuthenticateHeader) {
@@ -100,7 +101,7 @@
                         break;
                     }
                 }
-
+                console.log('ticket: ' + ticket);
                 // a permission ticket must exist in order to send an authorization request
                 if (!ticket) {
                     return $q.reject(rejection);

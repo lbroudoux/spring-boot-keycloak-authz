@@ -3,8 +3,8 @@
 Sample AngularJS / Spring Boot app using Keycloak Authorization services.
 
 
-Fex months ago, I've played with [Authorization services in Keycloak](https://www.keycloak.org/docs/3.4/authorization_services/index.html)
-(was using the 3.4.0.Final) and I’d like to share  some feedbacks and thoughts about using it on my Spring Boot application.
+Few months ago, I've played with [Authorization services in Keycloak](https://www.keycloak.org/docs/3.4/authorization_services/index.html)
+(was using the 4.0.0.Final) and I’d like to share  some feedbacks and thoughts about using it on my Spring Boot application.
 Disclaimer: I’m not a security guru and may have misunderstood some concepts.
 
 The goal of this repository is to light up some parts that seems a little weird to me. And eventually work onto a better
@@ -41,7 +41,7 @@ $ git clone https://github.com/lbroudoux/spring-boot-keycloak-authz.git
 
 ### Keycloak
 
-Download a Keycloak distribution (I have used `3.4.0-Final` release) and start the server locally.
+Download a Keycloak distribution (I have used `4.0.0-Final` release) and start the server locally.
 You'll just have to go to `${KEYCLOAK_HOME}/bin` directory and execute the following command. 
 
 ```
@@ -62,7 +62,7 @@ This should a realm called simply `sbauthz`.
 
 ### Spring Boot application
 
-Before lauching everything, you need to retrieve some frontend compoents. For that, we'll use `bower`.
+Before launching everything, you need to retrieve some frontend compoents. For that, we'll use `bower`.
 So just execute `bower install` within your clone directory.
 
 Now just launch the `mvn spring-boot:run` command:
@@ -91,7 +91,7 @@ The application has started after you just see those lines. The application is d
 ## Playing around
 
 Default configuration comes with 3 users:
-* admin (`admin/123`) is administrator and is able to administrate realm
+* admin (`admin/<new_password>`) is administrator and is able to administrate realm
 * jdoe (`jdoe/jdoe`) is simple user
 * alice (`alice/alice`) is user and manager of resources
    
@@ -105,8 +105,17 @@ is only visible for the `admin` role.
 * `Get Users` allows to retrieve all users from realm,
 
 > Once users have been loaded, you should have access to extra links in order to get user roles, attach resource to 
-users or get resources managed/owned by user. See below for more on resources,  
+users or get resources managed/owned by user. See below for more on resources.
 
 * `Create Resource` illustrates the declaration of a Resource on Keycloak side,
+
+> This should be done in the same time you create resources into your application database.
+
 * `Clean Resource` illustrates how to destroy a Resource on Keycloak side,
-* `Check Identity` illustrates the invocation of a protected Resource with resolution of the UMA challenge on the client side.
+* `Check Identity` illustrates the invocation of a protected Resource with resolution of the UMA challenge on the client side,
+* `Attach Resource` near to user illustrates the attachment of the previously created Resource to a user on the server side,
+
+> This should be done when you're assigning the `manager` role to a Resource within your application. Target user is declared as
+`owner` on the Keycloak side.
+
+* `Get Owned Resources` near to user illustrates how to retrieve Resources owned by user on the server side,
